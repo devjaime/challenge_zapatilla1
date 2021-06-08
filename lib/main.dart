@@ -1,6 +1,6 @@
+import 'package:challenge_shoes/pages/dashboard/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:challenge_shoes/pages/detail/detail.shoes.page.dart';
-import 'package:challenge_shoes/pages/home/home.page.dart';
  
 void main() => runApp(MyApp());
  
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/home',
       routes: {
-        '/home': (context) => HomePage(),
+        '/home': (context) => DashBoardPage(),
         '/detail': (context)=> DetailShoesPage()
       }
     );

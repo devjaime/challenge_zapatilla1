@@ -10,7 +10,7 @@ class HomeShoesList extends StatefulWidget {
 
 class _HomeShoesListState extends State<HomeShoesList> {
   List<Map> shoes = [
-     {
+    {
       "name": "Nike Air Max 270 React",
       "image": "nike_4.png",
       "cost": "\$ 270.00",
@@ -52,7 +52,6 @@ class _HomeShoesListState extends State<HomeShoesList> {
       "cost": "\$ 450.00",
       "isFav": true,
     },
-   
     {
       "name": "Nike Vibrant Red",
       "image": "nike_9.png",
@@ -72,70 +71,102 @@ class _HomeShoesListState extends State<HomeShoesList> {
         child: GlowingOverscrollIndicator(
       axisDirection: AxisDirection.down,
       color: Colors.black,
-      child: ListView.builder(
-        itemCount: shoes.length,
-        itemBuilder: (context, i) {
-          Map currentShoe = shoes[i];
-          return Container(
-            padding: EdgeInsets.only(top: 20, left: 30, right: 30, bottom: 30),
-            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(
-                  30,
-                )),
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.favorite_border,
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 130,
-                        child: Image.asset("assets/images/${currentShoe['image']}"),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        "${currentShoe['name']}",
-                        style: GoogleFonts.spartan(
-                          textStyle: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              color: Colors.black,
-                              fontSize: 16,
-                              letterSpacing: -1),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        "${currentShoe['cost']}",
-                        style: GoogleFonts.spartan(
-                          textStyle: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                              fontSize: 14,
-                              letterSpacing: -1),
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
+      child: Container(
+
+        decoration: BoxDecoration(
+        color: Colors.grey.shade300,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30),
+            bottomRight: Radius.circular(30)
+          )
+        ),
+        child: Container(
+          
+          child: GridView.builder(
+            
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+             crossAxisCount: 2,
             ),
-          );
-        },
+            itemCount: shoes.length,
+            itemBuilder: (context, i) {
+              Map currentShoe = shoes[i];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/detail', arguments: currentShoe);
+                },
+                
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
+                  child: Container(
+                   
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(
+                          25,
+                        )),
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  currentShoe['isFav'] = !currentShoe['isFav'];
+                                });
+                              },
+                              icon: Icon(
+                                currentShoe['isFav']
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Colors.black,
+                              )),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 130,
+                                child: Image.asset(
+                                    "assets/images/${currentShoe['image']}"),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "${currentShoe['name']}",
+                                style: GoogleFonts.spartan(
+                                  textStyle: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      letterSpacing: -1),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1,
+                              ),
+                              Text(
+                                "${currentShoe['cost']}",
+                                style: GoogleFonts.spartan(
+                                  textStyle: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
+                                      fontSize: 5,
+                                      letterSpacing: -1),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ),
     ));
   }
